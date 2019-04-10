@@ -16,7 +16,7 @@ function Write-BeginStep($invocation)
     Write-Output ""
 }
 
-function Initialze-Filesystem
+function Initialize-Filesystem
 {
     Write-BeginStep $MYINVOCATION
 
