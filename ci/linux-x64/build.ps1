@@ -5,9 +5,11 @@ param (
 $ErrorActionPreference = "Stop"
 Push-Location "$PSScriptRoot/../../"
 
+. "./ci/build-deps.ps1"
+
 Write-Host $env:PATH
 
-. "./ci/build-deps.ps1"
+ls /home/appveyor/.cargo/bin
 
 dotnet --version
 rustc --version
