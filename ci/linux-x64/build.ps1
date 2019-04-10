@@ -7,6 +7,7 @@ Push-Location "$PSScriptRoot/../../"
 
 . "./ci/build-deps.ps1"
 
+Initialize-Filesystem
 Invoke-LinuxBuild
 Invoke-DockerBuild
 

@@ -16,6 +16,18 @@ function Write-BeginStep($invocation)
     Write-Output ""
 }
 
+function Initialze-Filesystem
+{
+    Write-BeginStep $MYINVOCATION
+
+    if (Test-Path .\publish)
+    {
+        Remove-Item -Recurse -Force .\publish
+    }
+
+    Create-Item -ItemType Directory .\publish
+}
+
 function Invoke-LinuxBuild
 {
     Write-BeginStep $MYINVOCATION
