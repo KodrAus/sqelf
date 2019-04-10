@@ -36,6 +36,8 @@ function Invoke-LinuxBuild
     $ErrorActionPreference = "SilentlyContinue"
 
     & cargo test
+    if ($LASTEXITCODE) { exit 1 }
+    
     & cargo build --release --target x86_64-unknown-linux-gnu
     if ($LASTEXITCODE) { exit 1 }
 
@@ -58,6 +60,8 @@ function Invoke-WindowsBuild
     $ErrorActionPreference = "SilentlyContinue"
 
     & cargo test
+    if ($LASTEXITCODE) { exit 1 }
+
     & cargo build --release --target=x86_64-pc-windows-msvc
     if ($LASTEXITCODE) { exit 1 }
 
