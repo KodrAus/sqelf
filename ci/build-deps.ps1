@@ -15,58 +15,19 @@ function Write-BeginStep($invocation)
     Write-Output "###########################################################"
     Write-Output ""
 }
-function Initialize-Docker
-{
-    Write-BeginStep $MYINVOCATION
-    
-    if ($IsCIBuild) {
-        Write-Output "Switching Docker to Linux containers..."
-        
-        docker-switch-linux
-        if ($LASTEXITCODE) { exit 1 }
-    }
-}
-
-function Initialize-Filesystem
-{
-    Write-BeginStep $MYINVOCATION
-    
-    if (Test-Path .\publish) {
-        Remove-Item .\publish -Recurse
-    }
-
-    mkdir .\publish
-
-    if ($IsCIBuild)
-    {
-        $hostShare = "X:\host"
-        ls $hostshare
-
-        mkdir "$hostShare/src"
-        Copy-Item -Path ./* -Recurse -Destination "$hostShare/src"
-
-        mkdir "$hostShare\tmp"
-        $env:TMP = "$hostShare\tmp"
-        $env:TEMP = "$hostShare\tmp"
-    }
-}
 
 function Invoke-LinuxBuild
 {
     Write-BeginStep $MYINVOCATION
 
-    if ($IsCIBuild) {
-        $hostShare = "X:\host"
-        Push-Location "$hostShare/src"
-    }
+    # Cargo writes to STDERR
+    $ErrorActionPreference = "SilentlyContinue"
 
-    & "./ci/cross-build.ps1" 2>&1
+    & cargo test
+    & cargo build --release --target x86_64-unknown-linux-gnu
     if ($LASTEXITCODE) { exit 1 }
-    
-    if ($IsCIBuild) {
-        Pop-Location
-        Copy-Item -Path "$hostShare/src/target" -Recurse -Destination . -Container
-    }
+
+    $ErrorActionPreference = "Stop"
 }
 
 function Invoke-DockerBuild
@@ -84,7 +45,8 @@ function Invoke-WindowsBuild
     # Cargo writes to STDERR
     $ErrorActionPreference = "SilentlyContinue"
 
-    cargo build --release --target=x86_64-pc-windows-msvc
+    & cargo test
+    & cargo build --release --target=x86_64-pc-windows-msvc
     if ($LASTEXITCODE) { exit 1 }
 
     $ErrorActionPreference = "Stop"
