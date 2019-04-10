@@ -5,6 +5,8 @@ param (
 $ErrorActionPreference = "Stop"
 Push-Location "$PSScriptRoot/../../"
 
+$env:Path = "/home/appveyor/.cargo/bin;$env:Path"
+
 . "./ci/build-deps.ps1"
 
 dotnet --version
