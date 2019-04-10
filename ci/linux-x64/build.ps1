@@ -7,6 +7,9 @@ Push-Location "$PSScriptRoot/../../"
 
 . "./ci/build-deps.ps1"
 
+dotnet --version
+rustc --version
+
 Initialize-Filesystem
 Invoke-LinuxBuild
 Invoke-DockerBuild
