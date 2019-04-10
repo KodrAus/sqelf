@@ -37,7 +37,7 @@ function Invoke-LinuxBuild
 
     & cargo test
     if ($LASTEXITCODE) { exit 1 }
-    
+
     & cargo build --release --target x86_64-unknown-linux-gnu
     if ($LASTEXITCODE) { exit 1 }
 
@@ -180,7 +180,7 @@ function Invoke-TestApp {
 
     & docker run `
         --rm `
-        -it `
+        -i `
         --log-driver gelf `
         --log-opt gelf-address=udp://localhost:12202 `
         sqelf-app-test:latest
