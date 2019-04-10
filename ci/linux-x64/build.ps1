@@ -7,8 +7,6 @@ Push-Location "$PSScriptRoot/../../"
 
 . "./ci/build-deps.ps1"
 
-Write-Host $env:PATH
-
 dotnet --version
 rustc --version
 
