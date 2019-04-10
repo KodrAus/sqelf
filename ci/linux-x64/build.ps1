@@ -5,7 +5,8 @@ param (
 $ErrorActionPreference = "Stop"
 Push-Location "$PSScriptRoot/../../"
 
-ls /home
+ls /home/appveyor
+ls /home/appveyor/.cargo
 
 . "./ci/build-deps.ps1"
 
