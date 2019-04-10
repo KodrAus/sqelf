@@ -820,7 +820,7 @@ mod tests {
     #[test]
     fn when_timeout_expires_incomplete_messages_are_dropped() {
         let mut gelf = Gelf::new(Config {
-            incomplete_timeout_ms: 2,
+            incomplete_timeout_ms: 10,
             ..Default::default()
         });
 
@@ -830,7 +830,7 @@ mod tests {
         gelf.decode(chunk(1, 0, 3, b"2"))
             .expect("failed to decode message");
 
-        thread::sleep(Duration::from_millis(5));
+        thread::sleep(Duration::from_millis(3000));
 
         // Adding another chunk should clean up the expired messages
         // After this, there should only be the last message chunk added
