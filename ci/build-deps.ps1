@@ -25,7 +25,7 @@ function Initialize-Filesystem
         Remove-Item -Recurse -Force .\publish
     }
 
-    Create-Item -ItemType Directory .\publish
+    New-Item -ItemType Directory .\publish
 }
 
 function Invoke-LinuxBuild
