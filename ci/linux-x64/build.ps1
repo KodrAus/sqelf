@@ -9,8 +9,6 @@ Push-Location "$PSScriptRoot/../../"
 
 Write-Host $env:PATH
 
-ls /home/appveyor/.cargo/bin
-
 dotnet --version
 rustc --version
 

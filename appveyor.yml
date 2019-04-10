@@ -44,7 +44,7 @@ for:
 
   install:
   - ./ci/linux-x64/setup.sh
-  - ps: $env:PATH = "/home/appveyor/.cargo/bin;$env:PATH"
+  - ps: $env:PATH = "/home/appveyor/.cargo/bin:$env:PATH"
 
   build_script:
   - ps: ./ci/linux-x64/build.ps1 -shortver "$($env:APPVEYOR_BUILD_VERSION)"
