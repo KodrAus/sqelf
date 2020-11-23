@@ -12,7 +12,7 @@ use sqelf::{
         emit,
         emit_err,
     },
-    error::Error,
+    Error,
     process,
     receive,
     server,
@@ -98,11 +98,11 @@ fn main() {
 
 fn unwrap_panic(panic: Box<dyn Any + Send + 'static>) -> Error {
     if let Some(err) = panic.downcast_ref::<&str>() {
-        return Error::msg(err);
+        return Error::msg(err.to_owned());
     }
 
     if let Some(err) = panic.downcast_ref::<String>() {
-        return Error::msg(err);
+        return Error::msg(err.clone());
     }
 
     Error::msg("unexpected panic (this is a bug)")

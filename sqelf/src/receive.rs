@@ -16,6 +16,7 @@ use std::{
     },
 };
 
+use anyhow::Error;
 use bytes::{
     Buf,
     Bytes,
@@ -25,10 +26,7 @@ use libflate::{
     zlib,
 };
 
-use crate::{
-    error::Error,
-    io::MemRead,
-};
+use crate::io::MemRead;
 
 metrics! {
     chunk,

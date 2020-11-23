@@ -2,6 +2,8 @@ pub mod clef;
 mod gelf;
 pub mod str;
 
+use anyhow::Error;
+
 use serde_json::Value;
 
 use self::str::{
@@ -10,10 +12,7 @@ use self::str::{
     Str,
 };
 
-use crate::{
-    error::Error,
-    io::MemRead,
-};
+use crate::io::MemRead;
 
 use std::{
     collections::HashMap,
